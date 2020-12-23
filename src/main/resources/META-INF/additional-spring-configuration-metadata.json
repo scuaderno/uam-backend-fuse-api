@@ -1,0 +1,72 @@
+{"properties": [
+  {
+    "name": "camel.component.json-validator.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'camel.component.json-validator.enabled'"
+  },
+  {
+    "name": "springboot.name",
+    "type": "java.lang.String",
+    "description": "A description for 'springboot.name'"
+  },
+  {
+    "name": "springboot.main-run-controller",
+    "type": "java.lang.String",
+    "description": "A description for 'springboot.main-run-controller'"
+  },
+  {
+    "name": "quickstart.generateOrderPeriod",
+    "type": "java.lang.String",
+    "description": "A description for 'quickstart.generateOrderPeriod'"
+  },
+  {
+    "name": "quickstart.processOrderPeriod",
+    "type": "java.lang.String",
+    "description": "A description for 'quickstart.processOrderPeriod'"
+  },
+  {
+    "name": "appProxy.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.ip'"
+  },
+  {
+    "name": "appProxy.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.ip'"
+  },
+  {
+    "name": "appProxy.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.ip'"
+  },
+  {
+    "name": "appProxy.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.ip'"
+  },
+  {
+    "name": "appProxy.port",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.port'"
+  },
+  {
+    "name": "appProxy.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'appProxy.ip'"
+  },
+  {
+    "name": "ssl.keystore.path",
+    "type": "java.lang.String",
+    "description": "A description for 'ssl.keystore.path'"
+  },
+  {
+    "name": "mockapi.customers-api",
+    "type": "java.lang.String",
+    "description": "A description for 'mockapi.customers-api'"
+  },
+  {
+    "name": "mulesoft.uam-app",
+    "type": "java.lang.String",
+    "description": "A description for 'mulesoft.uam-app'"
+  }
+]}
