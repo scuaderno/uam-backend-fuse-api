@@ -1,4 +1,4 @@
-package com.backend.fuseapi;
+package com.backend.fuseapi.utils;
 
 public enum ResultCode implements IResultCode {
 

@@ -1,4 +1,4 @@
-package com.backend.fuseapi;
+package com.backend.fuseapi.route;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.http4.HttpComponent;

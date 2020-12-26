@@ -1,4 +1,4 @@
-package com.backend.fuseapi;
+package com.backend.fuseapi.utils;
 
 import java.io.Serializable;
 import java.util.Optional;
