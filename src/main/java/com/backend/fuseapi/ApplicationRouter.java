@@ -15,6 +15,12 @@ public class ApplicationRouter extends RouteBuilder {
 	@Value("${mulesoft.uam-app}")
     private String muleUamApp;
 
+	@Value("${mockapi.uam-api}")
+    private String mockMuleApi;
+	
+	@Value("${mulesoft.proxy}")
+	private String mulesoftProxy;
+	
 	@Value("${appProxy.ip}")
 	private String proxyServerIp;
 
@@ -32,17 +38,20 @@ public class ApplicationRouter extends RouteBuilder {
 		HttpComponent httpComponent = getContext().getComponent("https4", HttpComponent.class);
 		httpComponent.setSslContextParameters(muleSslContextParameters());
 		
-		// Call Mule Exchange mock REST API to get customer info
+		// Call Mule Exchange mock REST API to getAllApplication details
 		from("direct:uam-app").routeId("direct-uam-app")
 				.setHeader("Accept", constant("application/json"))
-				//.setHeader("Host", constant("np1.muleamp.hkt.com"))
-				.toD("https4:" + muleUamApp
+				.setHeader("Host", constant(mulesoftProxy))
+				.to("https4:" + mockMuleApi
 //						+ "?proxyAuthHost=" + proxyServerIp
 //						+ "&proxyAuthPort=" + proxyServerPort
 						+ "?bridgeEndpoint=true"
 						+ "&throwExceptionOnFailure=false"
 						+ "&connectTimeout=30000"
 //						+ "&sslContextParameters=#mySslContextParameters"
+						+ "&sslTruststoreLocation=classpath:truststores.dev.p12" 
+						+ "&sslTruststorePassword=" + keystorePass
+						+ "&securityProtocol=SSL" 
 				)
 				.convertBodyTo(String.class)
 				.log("${body}")

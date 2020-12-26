@@ -68,5 +68,20 @@
     "name": "mulesoft.uam-app",
     "type": "java.lang.String",
     "description": "A description for 'mulesoft.uam-app'"
+  },
+  {
+    "name": "ssl.keystore.password",
+    "type": "java.lang.String",
+    "description": "A description for 'ssl.keystore.password'"
+  },
+  {
+    "name": "mockapi.uam-api",
+    "type": "java.lang.String",
+    "description": "A description for 'mockapi.uam-api'"
+  },
+  {
+    "name": "mulesoft.proxy",
+    "type": "java.lang.String",
+    "description": "A description for 'mulesoft.proxy'"
   }
 ]}
