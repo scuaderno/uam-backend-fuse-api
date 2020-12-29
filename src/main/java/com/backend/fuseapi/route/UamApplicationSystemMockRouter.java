@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApplicationRouter extends RouteBuilder {
-
-	@Value("${mulesoft.uam-app}")
-    private String muleUamApp;
+public class UamApplicationSystemMockRouter extends RouteBuilder {
 
 	@Value("${mockapi.uam-api}")
     private String mockMuleApi;
@@ -39,7 +36,7 @@ public class ApplicationRouter extends RouteBuilder {
 		httpComponent.setSslContextParameters(muleSslContextParameters());
 		
 		// Call Mule Exchange mock REST API to getAllApplication details
-		from("direct:uam-app").routeId("direct-uam-app")
+		from("direct:uam-app-mock").routeId("direct-uam-app-mock")
 				.setHeader("Accept", constant("application/json"))
 				.setHeader("Host", constant(mulesoftProxy))
 				.to("https4:" + mockMuleApi
@@ -68,7 +65,7 @@ public class ApplicationRouter extends RouteBuilder {
 		store.setPassword(keystorePass);
 
 		KeyManagersParameters key = new KeyManagersParameters();
-		key.setKeyPassword("");
+		key.setKeyPassword(keystorePass);
 		key.setKeyStore(store);
 
 		TrustManagersParameters trust = new TrustManagersParameters();
