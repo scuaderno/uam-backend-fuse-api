@@ -37,7 +37,7 @@ public class UamApplicationSystemApiRouter extends RouteBuilder {
 		httpComponent.setSslContextParameters(muleSslContextParameters());
 		
 		// Call Mule cloudhub REST API to getAllApplication details
-		from("direct:uam-app-mock").routeId("direct-uam-app-mock")
+		from("direct:uam-app").routeId("direct-uam-app")
 		.setHeader("Accept", constant("application/json"))
 		.setHeader("Host", constant(mulesoftProxy))
 		.to("https4:" + muleUamApp
