@@ -40,14 +40,14 @@ public class UamApplicationSystemApiRouter extends RouteBuilder {
 		from("direct:uam-app").routeId("direct-uam-app")
 		.setHeader("Accept", constant("application/json"))
 		.setHeader("Host", constant(mulesoftProxy))
-		.to("https4:" + muleUamApp
-//				+ "?proxyAuthHost=" + proxyServerIp
-//				+ "&proxyAuthPort=" + proxyServerPort
+		.setHeader("Port", constant("8080"))
+		.to("http:" + muleUamApp
+				//+ "?proxyAuthHost=" + proxyServerIp
+				//+ "&proxyAuthPort=" + proxyServerPort
 				+ "?bridgeEndpoint=true"
 				+ "&throwExceptionOnFailure=false"
 				+ "&connectTimeout=30000"
-//				+ "&sslContextParameters=#mySslContextParameters"
-				+ "&sslTruststoreLocation=classpath:truststores.dev.p12" 
+				+ "&sslTruststoreLocation=classpath:uamspace-uat_hkt_com.jks" 
 				+ "&sslTruststorePassword=" + keystorePass
 				+ "&securityProtocol=SSL" 
 		)
