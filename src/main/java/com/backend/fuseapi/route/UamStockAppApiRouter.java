@@ -1,0 +1,84 @@
+package com.backend.fuseapi.route;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.http.HttpMethods;
+import org.apache.camel.component.http4.HttpComponent;
+import org.apache.camel.util.jsse.KeyManagersParameters;
+import org.apache.camel.util.jsse.KeyStoreParameters;
+import org.apache.camel.util.jsse.SSLContextParameters;
+import org.apache.camel.util.jsse.TrustManagersParameters;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UamStockAppApiRouter extends RouteBuilder {
+
+	
+	@Value("${mulesoft.uam-app-stock-create}")
+    private String muleUamAppStockCreate;
+
+	@Value("${mulesoft.proxy}")
+	private String mulesoftProxy;
+	
+	@Value("${appProxy.ip}")
+	private String proxyServerIp;
+
+	@Value("${appProxy.port}")
+	private String proxyServerPort;
+
+	@Value("${ssl.keystore.path}")
+	private String keystorePath;
+
+	@Value("${ssl.keystore.password}")
+	private String keystorePass;
+	
+	@Override
+	public void configure() throws Exception {
+		HttpComponent httpComponent = getContext().getComponent("https4", HttpComponent.class);
+		httpComponent.setSslContextParameters(muleSslContextParameters());
+		
+		// Call Mule cloudhub REST API to getAllApplication details
+		from("direct:uam-app-stock-create").routeId("direct-uam-app-stock-create")
+		.setHeader("Accept", constant("application/json"))
+		.setHeader("Content-Type", constant("application/json"))
+		.setHeader("CamelHttpMethod", constant(HttpMethods.POST))
+		//.setHeader("Host", constant(mulesoftProxy))
+		//.setHeader("Port", constant("8080"))
+		.to("http:" + muleUamAppStockCreate
+				//+ "?proxyAuthHost=" + proxyServerIp
+				//+ "&proxyAuthPort=" + proxyServerPort
+				+ "?bridgeEndpoint=true"
+				+ "&throwExceptionOnFailure=false"
+				+ "&connectTimeout=30000"
+				+ "&sslTruststoreLocation=classpath:uamspace-uat_hkt_com.jks" 
+				+ "&sslTruststorePassword=" + keystorePass
+				+ "&securityProtocol=SSL" 
+		)
+		.convertBodyTo(String.class)
+		.log("${body}")
+		//.process(customerProcessor)
+		.marshal().json()
+		.end();
+		
+	}
+	
+	private SSLContextParameters muleSslContextParameters() {
+
+		KeyStoreParameters store = new KeyStoreParameters();
+		store.setResource(keystorePath);
+		store.setPassword(keystorePass);
+
+		KeyManagersParameters key = new KeyManagersParameters();
+		key.setKeyPassword(keystorePass);
+		key.setKeyStore(store);
+
+		TrustManagersParameters trust = new TrustManagersParameters();
+		trust.setKeyStore(store);
+
+		SSLContextParameters parameters = new SSLContextParameters();
+		parameters.setTrustManagers(trust);
+		parameters.setKeyManagers(key);
+
+		return parameters;
+	}
+}
